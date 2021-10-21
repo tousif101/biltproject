@@ -1,5 +1,6 @@
 package com.example.biltproject.Service;
 
+import com.example.biltproject.Objects.AirlineResponse;
 import com.example.biltproject.Objects.Programs;
 import com.example.biltproject.Objects.Transfer;
 import com.example.biltproject.Objects.User;
@@ -24,6 +25,9 @@ public class TransferServiceImpl implements TransferService {
     @Autowired
     ProgramsRepository programsRepository;
 
+    @Autowired
+    RestClient restClient;
+
 //    @Autowired
 //    ProgramsService programsService;
 
@@ -42,13 +46,18 @@ public class TransferServiceImpl implements TransferService {
 
         int totalBP = amount * cost;
         //TODO: Check userbiltPoint Logic here
-        //TODO: Make some calls ASYNC
+        if(user.getBiltpoints()<totalBP){
+            //Change sout to LOGS. Would essentially have the front end not be able to send. But do serverside validation
+            System.out.println("USER  DOESNT HAVE ENOUGH POINTS");
+            //TODO: return back an error message and response back. Potentially add a comment about the transder. Weather it was succesful or not
+        }
         int newBP = userBiltPoint-totalBP;
         user.setBiltpoints(newBP);
         userRepository.save(user);
 
-        //TODO: Call API HERE
-        //Feign Client
+        //TODO: Add all the try catch logic here.
+        AirlineResponse airlineResponse = restClient.readAirLineById("1");
+        System.out.println(airlineResponse);
 
         Transfer transfer = new Transfer();
         transfer.setAmount(amount);
@@ -60,7 +69,6 @@ public class TransferServiceImpl implements TransferService {
         transferRepository.save(transfer);
 
         return transfer;
-
     }
 
 

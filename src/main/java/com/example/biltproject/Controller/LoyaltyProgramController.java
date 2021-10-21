@@ -65,7 +65,6 @@ public class LoyaltyProgramController {
     //TODO: Turn this into a post. or Get for each user. Turn users in accountRefIds
     @GetMapping(value = "/transfer")
     public List<Transfer> transferPoints(){
-
         return transferService.getAllTransfers(); // Transfer detail.
     }
 

@@ -29,5 +29,4 @@ public class Transfer {
     @Column(name="program")
     private String program;
 
-
 }
