@@ -29,4 +29,12 @@ public class Transfer {
     @Column(name="program")
     private String program;
 
+
+    /*
+    TODO: Record None Successful transfer in a boolean.
+     Have front end show
+     Record a message.
+     More data is good.
+     */
+
 }
